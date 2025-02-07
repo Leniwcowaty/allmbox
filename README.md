@@ -38,7 +38,7 @@ If you use .desktop entry the container will be stopped after you exit the appli
 
 Upon first launch you will be greeted by AnythingLLM welcome screen and will be prompted to choose the backend, as shown below.
 
-[images/choose_backend.png]
+![](images/choose_backend.png)
 
 Choose of course **Ollama**. The app should automatically detect local installation of **llama3.2** and allow you to continue. Next steps include summary, opt-in AnythingLLM telemetry and naming your workspace. After that you're good to go.
 
