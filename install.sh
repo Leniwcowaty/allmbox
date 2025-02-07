@@ -42,7 +42,11 @@ if [ "$1" = "remove" ]; then
     fi
 
     rm -rf $HOME/.local/share/applications/AnythingLLM-$container_name.desktop
-    
+
+    if [ -z "$(distrobox ls | grep allmbox)" ]; then
+        rm -rf $HOME/.allmbox
+    fi
+
 else
     echo "What model do you want to run? [llama3.2]"
     echo "List of models available on Ollama Github page: https://github.com/ollama/ollama"
