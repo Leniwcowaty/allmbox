@@ -1,7 +1,7 @@
 #!/bin/bash
 
 imageSource="docker.io/leniwcowaty"
-image="allmbox:0.7-dev"
+image="allmbox:latest"
 
 if [ "$1" = "remove" ]; then
     distrobox enter allmbox -- /usr/local/bin/ollama rm llama3.2
