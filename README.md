@@ -1,6 +1,6 @@
 # README.md
 ## Allmbox
-A self-hosted Llama3.2 chatbot with graphical frontend using Distrobox container and hardware acceleration.
+A self-hosted chatbot with graphical frontend using Distrobox container and hardware acceleration. It can run all the models available for Ollama and allows to create multiple instances for different models.
 
 ### Dependencies
 This repository uses the following dependencies:
@@ -25,7 +25,15 @@ cd allmbox
 ./install.sh
 ```
 
-The script will pull Podman image, create the box named `allmbox` and setup both Ollama and AnythingLLM. In the end it will ask if you want to create .desktop entry - the default is Yes.
+The script will pull Podman image, then ask you for model you want to use. List of models is available on [Ollama Github page](https://github.com/ollama/ollama). The default model is **llama3.2**. 
+
+*Keep in mind - for now it doesn't have any "idiot-proofing", so if you input wrong model name the installation will continue, but the model won't be installed.*
+
+Next step, the script will ask for container name. This name will also be in .desktop entry name to make it easier to differenciate between instances. The default name is **allmbox**.
+
+Following that the script will continue to set up container and prompt you if you want to create .desktop entry. The default is **Yes**.
+
+*You can install multiple instances of allmbox by re-running install.sh and providing different container name. This allows you to have multiple AnythingLLM entries, each using different model. The names will be reflected in .desktop entries.*
 
 ### Running the Chatbot
 You can run AnythingLLM from your application launcher if you opted into adding .desktop entry. If not (or you prefer command line) you can run it from terminal with:
@@ -42,7 +50,7 @@ Upon first launch you will be greeted by AnythingLLM welcome screen and will be 
 
 Choose of course **Ollama**. The app should automatically detect local installation of **llama3.2** and allow you to continue. Next steps include summary, opt-in AnythingLLM telemetry and naming your workspace. After that you're good to go.
 
-If you want to reset AnythingLLM config, it's located in `$HOME/.config/anythingllm-desktop`
+Per-container AnythingLLM configs are located in `$HOME/.allmbox/[container name]/anythingllm-desktop`
 
 ### Removing the Chatbot
 To remove the chatbot use the installation script with keyword `remove`:
@@ -50,7 +58,9 @@ To remove the chatbot use the installation script with keyword `remove`:
 ./install.sh remove
 ```
 
-It will ask if you want to delete Podman image, AnythingLLM config files. In both cases the default is No.
+This will display list of all containers using **allmbox** image and then ask for name of the container you want to remove. Next it will ask if you want to delete Podman image, AnythingLLM config files. In both cases the default is **No**. 
+
+*If you opt in to delete config files and this was the only instance, the main allbox config folder will also be deleted.*
 
 ### Contributing to the Project
 Contributions are welcome! If you'd like to help with the project, please fork this repository and submit a pull request. If you want you can rebase it to other distro, or provide a build Dockerfile which will work for NVidia (I don't have NVidia card, so I can't test).
