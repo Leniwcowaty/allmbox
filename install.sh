@@ -49,6 +49,7 @@ Terminal=false" | tee $HOME/.local/share/applications/AnythingLLM.desktop
         # Make the file executable
         chmod +x $HOME/.local/share/applications/AnythingLLM.desktop
     fi
+    distrobox stop allmbox -Y
 fi
 
 
