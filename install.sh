@@ -35,10 +35,10 @@ if [ "$1" = "remove" ]; then
     read response
 
     if [ "${response,,}" = "y" ]; then
-        rm -rf $HOME/allmbox/$container_name
+        rm -rf $HOME/.allmbox/$container_name
         echo "Application config removed"
     else
-        echo "Application config image preserved, located in $HOME/allmbox/$container_name"
+        echo "Application config image preserved, located in $HOME/.allmbox/$container_name"
     fi
 
     rm -rf $HOME/.local/share/applications/AnythingLLM-$container_name.desktop
@@ -61,11 +61,11 @@ else
         container_name="allmbox"
     fi
 
-    mkdir -p $HOME/allmbox
-    mkdir -p $HOME/allmbox/$container_name
-    mkdir -p $HOME/allmbox/$container_name/anythingllm-desktop
+    mkdir -p $HOME/.allmbox
+    mkdir -p $HOME/.allmbox/$container_name
+    mkdir -p $HOME/.allmbox/$container_name/anythingllm-desktop
 
-    distrobox create --image $imageSource/$image --name $container_name --volume $HOME/allmbox/$container_name/anythingllm-desktop:$HOME/.config/anythingllm-desktop:rw --init --no-entry --yes
+    distrobox create --image $imageSource/$image --name $container_name --volume $HOME/.allmbox/$container_name/anythingllm-desktop:$HOME/.config/anythingllm-desktop:rw --init --no-entry --yes
     distrobox enter $container_name -- /setup_env.sh $model
     # Create the .desktop file
 
