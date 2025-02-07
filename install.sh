@@ -37,15 +37,14 @@ if [ "$1" = "remove" ]; then
     if [ "${response,,}" = "y" ]; then
         rm -rf $HOME/.allmbox/$container_name
         echo "Application config removed"
+        if [ -z "$(distrobox ls | grep allmbox)" ]; then
+            rm -rf $HOME/.allmbox
+        fi
     else
         echo "Application config image preserved, located in $HOME/.allmbox/$container_name"
     fi
 
     rm -rf $HOME/.local/share/applications/AnythingLLM-$container_name.desktop
-
-    if [ -z "$(distrobox ls | grep allmbox)" ]; then
-        rm -rf $HOME/.allmbox
-    fi
 
 else
     echo "What model do you want to run? [llama3.2]"
