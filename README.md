@@ -17,16 +17,18 @@ Before running the installer, make sure you have the following requirements:
 - (optional) AMD GPU for hardware acceleration (tested on series 7000 AMD GPUs, will probably run on older ones, but I'm 99% sure it won't work on NVidia, contributors welcomed)
 
 ## Installation Instructions
-### Super-mega-uber-basic installation
-Although it's not recommended, if you want just hop in with default settings you can use standard `curl` method of installation:
+### Quick cURL installation
+Although it's **not recommended** (remember kids, never run random scripts without reading them), if you want just hop in with default settings you can use standard `curl` method of installation:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Leniwcowaty/allmbox/refs/heads/main/install.sh | sh
 ```
 
-This will do the same as basic installation, but without pulling the git repo.
+This will do the same as basic installation, but without pulling the git repo. You can use options and commands (described in **Advanced installation**) with this method by adding `/dev/stdin [command] [options]` at the end, eg.:
 
-*Please note - with this method you cannot change the settings, nor use the `remove` function, so if you want to use different model than llama3.2 or not have to remove containers, images and config files yourself, use basic or advanced installation method.*
+```bash
+curl -fsSL https://raw.githubusercontent.com/Leniwcowaty/allmbox/refs/heads/main/install.sh | sh /dev/stdin -m deepseek-r1
+```
 
 ### Basic installation
 Make sure you have Podman and Distrobox installed. After that clone the repo from `master` branch and for basic, default installation run `install.sh`
