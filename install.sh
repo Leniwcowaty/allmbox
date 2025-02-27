@@ -185,7 +185,7 @@ EOF
     # Generate .desktop entry with container name, so it's easy to differenciate
     echo "[Desktop Entry]
 Name=AnythingLLM ($container_name)
-Exec=distrobox enter $container_name -- \$HOME/.allmbox/$container_name/AnythingLLMDesktop/start && distrobox stop $container_name -Y
+Exec=sh -c \"distrobox enter $container_name -- \\\\\$HOME/.allmbox/$container_name/AnythingLLMDesktop/start && distrobox stop $container_name -Y\"
 Type=Application
 Terminal=false" | tee $HOME/.local/share/applications/AnythingLLM-$container_name.desktop >> /dev/null
 
