@@ -4,7 +4,7 @@
 image="ubuntu:noble"
 
 # List of models available for Ollama
-models=("deepseek-r1" "deepseek-r1:671b" "llama3.3" "llama3.2:1b" "llama3.2-vision" "llama3.2-vision:90b"
+models=("gemma3:1b" "gemma3" "gemma3:12b" "gemma3:27b" "qwq" "deepseek-r1" "deepseek-r1:671b" "llama3.3" "llama3.2:1b" "llama3.2-vision" "llama3.2-vision:90b"
         "llama3.1" "llama3.1:405b" "phi4" "phi3" "gemma2" "gemma2:2b" "gemma2:27b" "mistral" "moondream"
         "neural-chat" "starling-lm" "codellama" "llama2-uncensored" "llava" "solar")
 
