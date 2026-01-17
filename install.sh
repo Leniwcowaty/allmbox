@@ -3,11 +3,6 @@
 # Base image
 image="ubuntu:noble"
 
-# List of models available for Ollama
-models=("gemma3:1b" "gemma3" "gemma3:12b" "gemma3:27b" "qwq" "deepseek-r1" "deepseek-r1:671b" "llama4:scout" "llama4:maverick" "llama3.3" "llama3.2:1b" "llama3.2-vision" "llama3.2-vision:90b"
-        "llama3.1" "llama3.1:405b" "phi4" "phi4-mini" "phi3" "mistral" "moondream"
-        "neural-chat" "starling-lm" "codellama" "llama2-uncensored" "llava" "granite3.3")
-
 # Default model
 default="llama3.2"
 
@@ -107,8 +102,7 @@ else # Install container
             echo "Usage: $0 [options]"
             echo "Options:"
             echo "  -m model        Which model to use "
-            echo "  -l              List available models
-                    The list of available models is also available on Ollama Github page: https://github.com/ollama/ollama"
+            echo "  -l              List available models"
             echo "  -h              Print this help message"
             echo -e "\nAdditional commands:"
             echo "  remove          Remove container 
@@ -116,20 +110,12 @@ else # Install container
             exit 0
             ;;
         l)
-            echo "Available Ollama LLM models:"
-            for item in "${models[@]}"; do
-                echo "$item"
-            done
+            echo "Available Ollama models are listed on: https://ollama.com/library"
             exit 0
             ;;
         m)
-            # Check if model is in the supported list, if not exit 128
-            if [[ ${models[@]} =~ ${OPTARG,,} ]]; then
-                model=${OPTARG}
-            else
-                echo "Invalid model, please refer to Ollama Github page: https://github.com/ollama/ollama"
-                exit 128
-            fi
+            # Set selected model as variable
+            model=${OPTARG}
             ;;
         :)
             # No argument given to -m, exit 128
@@ -160,7 +146,7 @@ else # Install container
     mkdir -p $HOME/.allmbox/$container_name
 
     # Create a base container based on $image with $container_name, install additional dependencies, create artificial home directory to separate instances, set default shell to bash, don't create menu entry for bare container, use systemd
-    distrobox create --image $image --name $container_name --home $HOME/.allmbox/$container_name -ap "lshw libnss3 alsa cron curl" -a "--env SHELL=/bin/bash" --init --yes --no-entry
+    distrobox create --image $image --name $container_name --home $HOME/.allmbox/$container_name -ap "lshw libnss3 alsa cron curl zstd fuse3 libfuse2" -a "--env SHELL=/bin/bash" --init --yes --no-entry
     
     # Configure container - install ollama, start it and download selected model, install AnythingLLM and add ollama model autostart at container boot to cron
     distrobox enter $container_name -- << EOF
@@ -185,7 +171,7 @@ EOF
     # Generate .desktop entry with container name, so it's easy to differenciate
     echo "[Desktop Entry]
 Name=AnythingLLM ($container_name)
-Exec=sh -c \"distrobox enter $container_name -- \\\\\$HOME/.allmbox/$container_name/AnythingLLMDesktop/start && distrobox stop $container_name -Y\"
+Exec=sh -c \"distrobox enter $container_name -- \\\\\$HOME/.allmbox/$container_name/AnythingLLMDesktop.AppImage && distrobox stop $container_name -Y\"
 Type=Application
 Terminal=false" | tee $HOME/.local/share/applications/AnythingLLM-$container_name.desktop >> /dev/null
 
